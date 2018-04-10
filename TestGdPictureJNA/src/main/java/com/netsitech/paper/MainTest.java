@@ -32,10 +32,10 @@ public class MainTest {
 				gdp.loadImage(input, null);
 				System.out.println("loadImage ok");
 
-				byte[] bmp = gdp.getAs(DocumentFormat.DocumentFormatBMP, 0);
+				byte[] bmp = gdp.getAs(DocumentFormat.DocumentFormatJPEG, 25);
 				System.out.println("getAs ok");
 
-				saveImageForManualCheck(bmp, "getAsBMP.bmp");
+				saveImageForManualCheck(bmp, "getAsBMP.jpg");
 				gdp.releaseImage();
 				System.out.println("releaseImage ok");
 
