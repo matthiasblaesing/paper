@@ -62,9 +62,12 @@ public class GdPictureImaging extends COMLateBindingObject {
 
 	public void loadImage(byte[] image, DocumentFormat format) throws GdPictureException {
 		try (SAFEARRAY safeArray = SAFEARRAY.createSafeArray(new WTypes.VARTYPE(Variant.VT_UI1), image.length)) {
-			for (int i = 0; i < image.length; i++) {
-				safeArray.putElement(image[i], i);
-			}
+                        Pointer safeArrayData = safeArray.accessData();
+                        try {
+                            safeArrayData.write(0, image, 0, image.length);
+                        } finally {
+                            safeArray.unaccessData();
+                        }
 			if (format != null) {
 				imageId = this.invoke("CreateGdPictureImageFromByteArray", new VARIANT(safeArray), new VARIANT(format.getValue()));
 			} else {
